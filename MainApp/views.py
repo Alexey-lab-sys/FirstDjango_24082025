@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, Http404
+from django.urls import reverse
 
 # Create your views here.
 
@@ -11,6 +12,15 @@ USER_DATA = {
     'phone': '8-923-600-01-02',
     'email': 'vasya@mail.ru'
     }
+
+
+items = [
+    {"id": 1, "name": "Кроссовки abibas"},
+    {"id": 2, "name": "Куртка кожаная"},
+    {"id": 3, "name": "Coca-cola 1 литр"},
+    {"id": 4, "name": "Картофель фри"},
+    {"id": 5, "name": "Кепка"},
+]
 
 
 
@@ -37,4 +47,13 @@ def about(request):
 
 
 
+
+def item_detail(request, item_id):
+    # Находим товар по id
+    item = next((item for item in items if item["id"] == item_id), None)
+    
+    if item is not None:
+        return HttpResponse(item["name"])
+    else:
+        return HttpResponse("Товар не найден", status=404)
 
