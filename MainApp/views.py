@@ -1,10 +1,6 @@
-#from django.shortcuts import render
-#from django.http import HttpResponse
-#from django.http import HttpResponse, Http404
-#from django.urls import reverse
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.shortcuts import render
+from django.http import HttpResponse
 from django.urls import reverse
 
 # Create your views here.
@@ -51,7 +47,7 @@ def about(request):
 
 def item_detail(request, item_id):
     """Страница товара по ID"""
-    # Ищем товар по ID, если не найден, вызываем 404
+    # Ищем товар по ID
     item = next((item for item in items if item['id'] == item_id), None)
     
     if item:
@@ -63,7 +59,11 @@ def item_detail(request, item_id):
         <a href="{reverse('about')}">Обо мне</a>
         """
     else:
-        return HttpResponse("<h2>Товар не найден</h2><br><a href='{reverse('items_list')}'>Назад к списку товаров</a>")
+        # Если товар не найден, возвращаем сообщение об ошибке
+        html = f"<h2>Товар с id={item_id} не найден</h2><br>"
+        html += f'<a href="{reverse("items_list")}">← Назад к списку товаров</a><br>'
+        html += f'<a href="{reverse("home")}">На главную</a> | '
+        html += f'<a href="{reverse("about")}">Обо мне</a>'
     
     return HttpResponse(html)
 
