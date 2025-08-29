@@ -7,11 +7,11 @@ from django.urls import reverse
 
 # Данные пользователя
 USER_DATA = {
-    'first_name': 'Иван',
-    'middle_name': 'Петрович',
-    'last_name': 'Иванов',
-    'phone': '8-923-600-01-02',
-    'email': 'vasya@mail.ru'
+    'first_name': 'Алексей',
+    'middle_name': 'Александрович',
+    'last_name': 'Требунский',
+    'phone': '8-916-950-95-29',
+    'email': 'a.tredounskiy@gmail.com'
 }
 
 # Список товаров
