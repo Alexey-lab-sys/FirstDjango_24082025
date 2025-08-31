@@ -1,5 +1,5 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 
@@ -16,11 +16,11 @@ USER_DATA = {
 
 # Список товаров
 items = [
-    {"id": 1, "name": "Кроссовки abibas"},
-    {"id": 2, "name": "Куртка кожаная"},
-    {"id": 3, "name": "Coca-cola 1 литр"},
-    {"id": 4, "name": "Картофель фри"},
-    {"id": 5, "name": "Кепка"},
+    {"id": 1, "name": "Кроссовки abibas", "quantity": 5},
+    {"id": 2, "name": "Куртка кожаная", "quantity": 2},
+    {"id": 3, "name": "Coca-cola 1 литр", "quantity": 12},
+    {"id": 4, "name": "Картофель фри", "quantity": 0},
+    {"id": 5, "name": "Кепка", "quantity": 124},
 ]
 
 def home(request) -> HttpResponse:
@@ -48,21 +48,14 @@ def item_detail(request, item_id):
     item = next((item for item in items if item['id'] == item_id), None)
     
     if item:
-        html = f"""
-        <h2>{item['name']}</h2>
-        ID товара: {item['id']}<br><br>
-        <a href="{reverse('items_list')}">← Назад к списку товаров</a><br>
-        <a href="{reverse('home')}">На главную</a> | 
-        <a href="{reverse('about')}">Обо мне</a>
-        """
+        # Передаем данные о товаре в шаблон
+        context = {
+            'name': item['name'],
+            'quantity': item['quantity'],
+        }
+        return render(request, 'item.html', context)
     else:
-        # Если товар не найден, возвращаем сообщение об ошибке
-        html = f"<h2>Товар с id={item_id} не найден</h2><br>"
-        html += f'<a href="{reverse("items_list")}">← Назад к списку товаров</a><br>'
-        html += f'<a href="{reverse("home")}">На главную</a> | '
-        html += f'<a href="{reverse("about")}">Обо мне</a>'
-    
-    return HttpResponse(html)
+        return HttpResponse("<h2>Товар не найден</h2>")
 
 def items_list(request):
     """Страница со списком товаров"""
