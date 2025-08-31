@@ -6,12 +6,24 @@
     <title>Детали товара</title>
 </head>
 <body>
+    <nav>
+        <a href="{% url 'main_page' %}">Главная</a> &gt; 
+        <a href="{% url 'items_list' %}">Список товаров</a> &gt; 
+        <strong>Детали товара</strong>
+    </nav>
+    
     <h1>Детали товара</h1>
-    <p><strong>Наименование товара:</strong> {{ name }}</p>
-    <p><strong>Количество:</strong> {{ quantity }}</p>
+    <p><strong>Наименование товара:</strong> <i>{{ name }}</i></p>
+    <p><strong>Количество:</strong> 
+        {% if quantity == 0 %}
+            <i>товар отсутствует</i>
+        {% else %}
+            <i>{{ quantity }}</i>
+        {% endif %}
+    </p>
+    
     <br>
-    <a href="{% url 'items_list' %}">← Назад к списку товаров</a><br>
-    <a href="{% url 'home' %}">На главную</a> | 
-    <a href="{% url 'about' %}">Обо мне</a>
+    <a href="{% url 'items_list' %}">Назад к списку товаров</a> |
+    <a href="{% url 'main_page' %}">На главную</a>
 </body>
 </html>

@@ -31,16 +31,9 @@ def home(request) -> HttpResponse:
     return render(request, "index.html", context)
 
 def about(request):
-    html = f"""
-    Имя: {USER_DATA['first_name']}<br>
-    Отчество: {USER_DATA['middle_name']}<br>
-    Фамилия: {USER_DATA['last_name']}<br>
-    телефон: {USER_DATA['phone']}<br>
-    email: {USER_DATA['email']}<br><br>
-    <a href="{reverse('home')}">На главную</a> |
-    <a href="{reverse('items_list')}">Список товаров</a>
-    """
-    return HttpResponse(html)
+    context = USER_DATA  # Передаем данные пользователя в шаблон
+    return render(request, "about.html", context)
+
 
 def item_detail(request, item_id):
     """Страница товара по ID"""
@@ -55,7 +48,9 @@ def item_detail(request, item_id):
         }
         return render(request, 'item.html', context)
     else:
-        return HttpResponse("<h2>Товар не найден</h2>")
+        # Если товар не найден, возвращаем 404
+        return render(request, '404.html', status=404)  # Создайте шаблон 404.html
+
 
 def items_list(request):
     """Страница со списком товаров"""

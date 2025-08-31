@@ -6,14 +6,16 @@
     <title>Главная страница</title>
 </head>
 <body>
+    <nav>
+        <a href="{% url 'main_page' %}">Главная</a> &gt; 
+        <a href="{% url 'items_list' %}">Список товаров</a>
+    </nav>
+    
     <h1>Приветствую!</h1>
-
     Меня зовут: <i>{{ name }}</i><br>
     Мой email: <i>{{ email }}</i><br>
     <br>    
     Это главная страница сайта.<br>
     <i>Сайт пока в разработке...</i>
-    <br><br>
-    <a href="{% url 'items_list' %}">Перейти к списку товаров</a>
 </body>
 </html>
