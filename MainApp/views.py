@@ -59,10 +59,7 @@ def item_detail(request, item_id):
 
 def items_list(request):
     """Страница со списком товаров"""
-    html = "<h2>Список товаров</h2><ul>"
-    for item in items:
-        html += f'<li><a href="{reverse("item_detail", args=[item["id"]])}">{item["name"]}</a></li>'
-    html += "</ul>"
-    html += f'<a href="{reverse("home")}">На главную</a> | '
-    html += f'<a href="{reverse("about")}">Обо мне</a>'
-    return HttpResponse(html)
+    context = {
+        'items': items  # Передаем список товаров в шаблон
+    }
+    return render(request, 'items_list.html', context)
