@@ -23,15 +23,12 @@ items = [
     {"id": 5, "name": "Кепка"},
 ]
 
-def home(request):
-    html = f'''
-    <h1>"Изучаем django"</h1>
-    <strong>Автор</strong>: <i>{USER_DATA["last_name"]} {USER_DATA["first_name"][0]}.{USER_DATA["middle_name"][0]}.</i>
-    <br><br>
-    <a href="{reverse('about')}">Обо мне</a> |
-    <a href="{reverse('items_list')}">Список товаров</a>
-    '''
-    return HttpResponse(html)
+def home(request) -> HttpResponse:
+    context = {
+        "name": "Требунский Алексей Александрович",
+        "email": "a.tredounskiy@gmail.com"
+    }
+    return render(request, "index.html", context)
 
 def about(request):
     html = f"""
