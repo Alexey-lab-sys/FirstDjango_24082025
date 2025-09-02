@@ -8,7 +8,13 @@
 <body>
     <h1>{{ name }}</h1>
     <p>Бренд: {{ brand }}</p>
-    <p>Количество: {{ count }}</p>
+    
+    {% if count > 0 %}
+        <p>Количество: {{ count }}</p>
+    {% else %}
+        <p>Товара нет на складе.</p>
+    {% endif %}
+    
     <a href="{% url 'items_list' %}">Вернуться к списку товаров</a>
 </body>
 </html>
