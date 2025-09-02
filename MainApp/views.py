@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
+from .models import Item
 
 # Create your views here.
 
@@ -36,23 +37,21 @@ def about(request):
 
 def item_detail(request, item_id):
     """Страница товара по ID"""
-    # Ищем товар по ID
-    item = next((item for item in items if item['id'] == item_id), None)
+    # Извлекаем товар из базы данных по ID
+    item = get_object_or_404(Item, id=item_id)
     
-    if item:
-        # Передаем данные о товаре в шаблон
-        context = {
-            'name': item['name'],
-            'quantity': item['quantity'],
-        }
-        return render(request, 'item.html', context)
-    else:
-        # Если товар не найден, возвращаем 404
-        return render(request, '404.html', status=404)
+    # Передаем данные о товаре в шаблон
+    context = {
+        'name': item.name,
+        'brand': item.brand,
+        'count': item.count,
+    }
+    return render(request, 'item.html', context)
 
 
 def items_list(request):
     """Страница со списком товаров"""
+    items = Item.objects.all()  # Извлекаем все товары из базы данных
     context = {
         'items': items  # Передаем список товаров в шаблон
     }

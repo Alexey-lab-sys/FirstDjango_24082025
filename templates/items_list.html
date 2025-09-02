@@ -6,28 +6,15 @@
     <title>Список товаров</title>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'main_page' %}">Главная</a> &gt; 
-        <strong>Список товаров</strong>
-    </nav>
-    
     <h1>Список товаров</h1>
     <ol>
         {% for item in items %}
             <li>
-                <a href="{% url 'item_detail' item.id %}">{{ item.name }}</a> 
-                (Количество: 
-                {% if item.quantity == 0 %}
-                    <i>товар отсутствует</i>
-                {% else %}
-                    <i>{{ item.quantity }}</i>
-                {% endif %})
+                <a href="{% url 'item_detail' item.id %}">{{ item.name }} (Бренд: {{ item.brand }}, Количество: {{ item.count }})</a>
             </li>
+        {% empty %}
+            <li>Нет доступных товаров.</li>
         {% endfor %}
     </ol>
-    
-    <br>
-    <a href="{% url 'main_page' %}">На главную</a> |
-    <a href="{% url 'items_list' %}">Обновить список товаров</a>
 </body>
 </html>
