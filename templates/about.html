@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обо мне</title>
-</head>
-<body>
-    <nav>
-        <a href="{% url 'main_page' %}">Главная</a> &gt; 
-        <strong>Обо мне</strong>
-    </nav>
-    
-    <h1>Обо мне</h1>
-    <p>Имя: {{ first_name }}</p>
-    <p>Отчество: {{ middle_name }}</p>
-    <p>Фамилия: {{ last_name }}</p>
-    <p>Телефон: {{ phone }}</p>
-    <p>Email: {{ email }}</p>
-    
-    <br>
-    <a href="{% url 'items_list' %}">Список товаров</a> |
-    <a href="{% url 'main_page' %}">На главную</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %} About page {% endblock %}
+
+{% block content %}
+    {{ block.super }}
+
+    <h1> Страница автора </h1>
+    {# Пример комментария #}
+    {% comment %} Это тоже комментарий {% endcomment %}
+    Имя: {{ author.name }}<br>
+    Отчество: {{ author.middle_name }}<br>
+    Фамилия: {{ author.last_name }}<br>
+    телефон: {{ author.phone }} <br>
+    email: {{ author.email }}<br>
+
+{% endblock %}

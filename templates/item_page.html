@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Item page {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'MainApp/color.css' %}">
+{% endblock  %}
+
+{% block content %}
+    {{ block.super }}
+
+    <h2> Имя: {{ item.name | capfirst }} </h2>
+    <div>
+        <p> Количество: {{ item.count | default:"товар отсутствует." }} </p>
+    </div>
+    <div>
+        <p>Бренд: {{ item.brand }}</p>
+    </div> 
+    <div>
+        <p>Описание: {{ item.description }}</p>
+    </div>   
+
+    <h3> Цвета: </h3>
+    <ul class='ul_no_mark'>
+        {% for color in colors %}
+            <li> 
+                <span class="color-box" style='background-color: {{ color.name }};'></span> 
+                {{ color.name }}    
+            </li>       
+        {% empty %}
+            Информация по цветам отсутствует.
+        {% endfor %}
+    </ul>
+{% endblock  %}

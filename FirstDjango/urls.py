@@ -1,14 +1,12 @@
 from django.urls import path
 from MainApp import views
-from MainApp.views import items_list, item_detail
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.home, name='main_page'),
+    path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('item/<int:item_id>/', views.item_detail, name='item_detail'),
-    path('items/', views.items_list, name='items_list'),
-    path('items/', items_list, name='items_list'),
-    path('item/<int:item_id>/', item_detail, name='item_detail'),
-    ]
+    path('item/<int:item_id>/', views.get_item, name='item-detail'),
+    path('items', views.get_items, name='items-list'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
